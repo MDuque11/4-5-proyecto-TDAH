@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Pagina inicial{% endblock %}</title>
+
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1><a>Pagina inicial</a></h1>
+            <ul>
+                <li><a href="{% url 'index' %}">Inicio</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'main' %}">Principal</a></li>
+                    <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+                {% else %}
+                    <li><a href="{% url 'main' %}">Principal</a></li>
+                    <li><a href="{% url 'login' %}">Iniciar sesión</a></li>
+                    <li><a href="{% url 'register' %}">Registrarse</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+
+    {% block content %}{% endblock %}
+    </main>
+
+    {% if request.resolver_match.url_name != 'login' %}
+    <footer class="footer">
+        <p>&copy; Pagina</p>
+    </footer>
+    {% endif %}
+</body>
+</html>
